@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>复制粘贴工具-for超哥</title>
+
+    <meta name="keywords" content="复制、粘贴、工具">
+    <meta name="description" content="输入待复制的列表，提供多种方式，依次或者自选复制内容。">
+
+    <!-- <base href="http://vip.qdxin.cn/vip/video-play/rtmp/tcopy-lib/"> -->
+
+    <!-- <base href="https://634174214.gitee.io/mytool/pages/easy-copy/"> -->
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+</head>
+<body>
+    <section id="app" class="container">
+        <div class="row top-h1">
+            <div class="col-md-12">
+                <h1>复制粘贴工具</h1>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form" v-show="list.length > 0" ref="form">
+                    <ul class="form-list">
+                        <li v-for="(item, index) in list"
+                            :key="index"
+                            :class="{'turn-active': record == index}" 
+                        >
+                            <span class="turn-tips">依次复制到此行</span>
+                            <div class="input-group-wrap">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">{{ index + 1 }}</span>
+                                    </div>
+                                    <input type="text" 
+                                           placeholder="请输入要复制的内容，回车添加下一行" 
+                                           required="required" 
+                                           :id="setInputId(index)" 
+                                           class="form-control"
+                                           @input="inputContent(index, event)"
+                                           :value="item"
+                                           @keyup.enter="addNew"
+                                    >
+                                </div>
+                            </div>
+                            <div class="control-btns">
+                                <button type="button" class="btn btn-outline-success copy" title="点我复制该行内容" @click="copyInput(index)"> 复制
+                                </button>
+                                <button type="button" class="btn btn-outline-danger del" title="点我删除该行内容" @click="deleteIput(index)"> 删除
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                    <input id="hiddenText" type="text" style="display:none" />
+                </form>
+                <div class="form-empty" v-show="list.length <= 0">
+                    请首先点击“添加一行” 新增一行内容吧！
+                </div>
+                
+                <div class="save-btns">
+                    <button type="button" class="btn btn-primary btn-lg" @click="addNew">添加一行</button>
+                    <button type="button" class="btn btn-warning btn-lg" @click="saveInputs">保存内容</button>
+                </div>
+            </div>
+            <!-- col-md-12 end -->
+            <div class="col-md-12">
+                <div class="copy-box">
+                    <h3>依次复制模式</h3>
+                    <div class="tips">
+                        <strong>Tips</strong>: <b>向前复制</b>默认从<b>最后一条</b>开始向前复制；<b>向后复制</b>默认从<b>第一条</b>开始向后复制。
+                    </div>
+                    <div class="copy-btn">
+                        <button type="type" class="btn btn-danger btn-lg" @click="copyBefore">向前复制 ctrl+z</button>
+                        <button type="type" class="btn btn-danger btn-lg" @click="copyAfter">向后复制 ctrl+x</button>
+                    </div>
+                    <div v-show="showCopyTips">
+                        <h2 class="copied-text">当前复制的是第{{ record + 1 }}个 ,本次复制的内容如下</h2>
+                        <p class="copy-text">
+                            {{ copyText }}
+                        </p>
+                    </div>
+                    <div class="reset-turn">
+                        <button type="button" class="btn btn-outline-danger btn-sm btn-block" @click="resetTurn">重置复制顺序</button>
+                    </div>
+                </div>
+            </div>
+            <!-- col-md-12 end -->
+            <div class="col-md-12 alert-tips">
+                <div class="alert alert-warning">
+                    <p><strong>使用帮助：</strong></p>
+                    <p>1、请先将要复制的内容，依次填入输入框中</p>
+                    <p>2、输入完成后，记得保存，记录会保存在本地缓存中。（记得全部删除后，也要点一下“保存”）</p>
+                    <p>3、使用时，可以点击目标行末的“复制”按钮，也可以使用“依次复制”模式。</p>
+                    <p>4、当点击红色的<b>“向前复制”或者“向后复制”</b>按钮时，会依次复制<b>前面/后面</b>输入框中的内容。</p>
+                    <p>5、待提示复制成功后，在目标页面ctrl+v粘贴即可。</p>
+                    <p>6、已经保存的内容只要不清空浏览器本地缓存会一直被保留。</p>
+                    <p>7、推荐使用任意版本的<b>chrome</b>浏览器。</p>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+    
+    <script src="js/jquery.js"></script>
+    <script src="js/layer/layer.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/copy-text.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
