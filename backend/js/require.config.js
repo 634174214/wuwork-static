@@ -1,8 +1,9 @@
 // 关键词使用require或者requirejs都可以，注意引用的时候不要带文件后缀.js
 require.config({
     // baseUrl: 'https://634174214.gitee.io/myblog-admin-assets/js/',
-    baseUrl: 'https://vip.qdxin.cn/lin/wb/website/backend/js/',
+    // baseUrl: 'https://vip.qdxin.cn/lin/wb/website/backend/js/',
     // baseUrl: '/admin/assets/js/',
+    baseUrl: 'https://cdn.jsdelivr.net/gh/634174214/wuwork-static@main/backend/js/',
     waitSeconds: 0,
     // 时间戳
     // urlArgs: 'bust=' + (new Date()).getTime(),
