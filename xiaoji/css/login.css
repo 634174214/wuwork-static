@@ -1,0 +1,11 @@
+@import url('login/base.css');
+@import url('login/iconfont.css');
+@import url('login/reg.css');
+
+/* 覆盖默认填充的蓝色 */
+input{
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+.form-data label, .find_password label{
+    z-index: 10;
+}
